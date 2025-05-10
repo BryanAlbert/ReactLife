@@ -18,7 +18,7 @@ const App = () => {
 			</div>
 			<h1>Vite + React + Love</h1>
 			<div className="card">
-				<button type='button' onClick={() => setCount((count) => count + 1)}>
+				<button type='button' onClick={() => setCount(count => count + 1)}>
 					count is {count}
 				</button>
 				<p>

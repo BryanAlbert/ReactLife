@@ -16,6 +16,13 @@ To get TypeScript-related eslinting:
 * Install relevant packages with `npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-react-x eslint-plugin-react-dom --save-dev`
 * install ESLint extension (Ctrl + Shift + X)
 
+### Debugging
+To get debugging working in VS Code:
+* Open `App.tsx`
+* In the Debug tab, "create a launch.json file." Choose "Web App (Chrome)"
+* Update `"url": "http://localhost:5173"`, `"webRoot": "${workspaceFolder}/src"`
+* in the Terminal, `npm run dev` to start the server the F5 to debug
+
 ## Rules
 Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) wikipedia page.
 
