@@ -10,6 +10,12 @@ To Create a React app in Visual Studio Code:
 * `npm install`
 * `npm run dev`
 
+### Update eslint
+To get TypeScript-related eslinting:
+* Update `eslint.config.js` as per instructions below
+* Install relevant packages with `npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-react-x eslint-plugin-react-dom --save-dev`
+* install ESLint extension (Ctrl + Shift + X)
+
 ## Rules
 Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) wikipedia page.
 
