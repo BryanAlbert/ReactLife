@@ -40,6 +40,14 @@ The upside-down R-pentomino example in the Wikipedia article diverges from my ve
 
 An enhancement, then, could be to compute assuming an infinitely-large field. This could be complicated since some shapes such as "gliders" and "space ships" can traverse the grid indefinitely, requiring a larger and larger grid. We could grow the grid as necessary, which could be problematic with size issues and buffer manipulation. We could also use a different storage mechanism, such as a hash table, which could be implemented with a JavaScript Map object. 
 
+## TODO:
+* Make components for LifeGrid and Cell
+	* LifeGrid holds the array, let's make that an Array of Arrays (start with a simple LifeState)
+	* Cell gets a function for setting that cell's state in LifeGrid's data
+* We define living? in the CellProps, if we are undefined, let's use a slightly different black than for false. 
+* Load a initial setting
+* Load multiple initial settings
+
 # React + TypeScript + Vite
 (Written to `README.md` by the Vite installation.)
 

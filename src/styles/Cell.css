@@ -1,0 +1,11 @@
+.cell {
+	width: 10px;
+	height: 10px;
+	background-color: black;
+}
+.cell.alive {
+	background-color: white;
+}
+.cell:hover {
+	background-color: #555;
+}
