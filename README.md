@@ -5,6 +5,7 @@ A coding exercise, to run the life simulation in a React app.
 To Create a React app in Visual Studio Code:
 * Run `npm init -y` to create a Node.js `package.json` file
 * Run `npm install react react-dom` to install React
+* Run `npm install --save-dev @types/react @types/react-dom` to install React type definitions (necessary for return types of React components, etc.?)
 * From the parent directory, run `npm create vite@latest React --template react-ts`, react-life for the package name, react for the framework, TypeScript for the variant
 * `cd React`
 * `npm install`
@@ -50,6 +51,11 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * We define living? in the CellProps, if we are undefined, let's use a slightly different black than for false. 
 * Load a initial setting
 * Load multiple initial settings
+* I'm (accidentally) using a lot of type inference, go through and declare types
+
+## Questions
+const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
+* Would you guys include the `: JSX.Element` type declaration on a Component signature? It requires importing type JSX from react which seems awkward, and it sounds like this type can be easily inferred. I decided to leave it off...  
 
 # React + TypeScript + Vite
 (Written to `README.md` by the Vite installation.)

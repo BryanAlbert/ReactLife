@@ -1,18 +1,16 @@
-import { useState } from 'react';
-import type { LifeState } from './Types';
 import Cell from './Cell';
+import type { LifeState } from './Types';
 import './styles/LifeGrid.css';
 
 export interface GridProps {
 	width: number;
 	height: number;
+	grid: LifeState[][];
+	setGrid: (grid: LifeState[][]) => void;
 }
 
-const LifeGrid = ({ width, height }: GridProps) => {
-	const [grid, setGrid] = useState<LifeState[][]>(Array.from({ length: height},
-		() => Array.from({ length: width}, () => 'none')));
-
-	const updateLifeState = (row: number, column: number, state: LifeState) => {
+const LifeGrid = ({ width, height, grid, setGrid }: GridProps) => {
+	const updateLifeState = (row: number, column: number, state: LifeState): void => {
 		const update = [...grid];
 		update[row][column] = state;
 		setGrid(update);
