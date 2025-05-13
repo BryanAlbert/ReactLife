@@ -1,16 +1,18 @@
-
 import type { LifeState } from './Types';
 import './styles/cell.css';
 
 interface CellProps {
-	living?: LifeState;
-	setLifeState: (living: LifeState) => void;
+	row: number;
+	column: number;
+	living: LifeState;
+	setLifeState: (row: number, column: number, living: LifeState) => void;
 }
 
-const Cell = ( { living, setLifeState }: CellProps ) => {
+const Cell = ({ living: state, setLifeState, row: row, column: column }: CellProps) => {
 	return (
-		<div className={ `cell ${living === 'living' ? 'alive' : ''}`}
-			onClick={ () => setLifeState(living === 'living' ? 'dead' : 'living')} />
+		<div className={ `cell ${state}`}
+			onClick={ () => setLifeState(row, column, 
+				state === 'alive' ? 'none' : 'alive')} />
 	);
 }
 

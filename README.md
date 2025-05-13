@@ -23,6 +23,9 @@ To get debugging working in VS Code:
 * Update `"url": "http://localhost:5173"`, `"webRoot": "${workspaceFolder}/src"`
 * in the Terminal, `npm run dev` to start the server the F5 to debug
 
+### Copilot settings
+I can't have Copilot writing all the code for me, I need to figure it out myself, so... click the monkey in the status bar and turn off "Code Completions (TypeScript JSX)." Note that it also looks like I've already burned through 75% of my Code completions... 
+
 ## Rules
 Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) wikipedia page.
 

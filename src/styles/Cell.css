@@ -3,9 +3,12 @@
 	height: 10px;
 	background-color: black;
 }
+.cell.dead {
+	background-color: #555;
+}
 .cell.alive {
 	background-color: white;
 }
 .cell:hover {
-	background-color: #555;
+	background-color: #a55;
 }
