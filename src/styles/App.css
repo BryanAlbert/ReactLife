@@ -1,10 +1,19 @@
 #root {
 	max-width: 1280px;
 	margin: 0 auto;
-	padding: 2rem;
+	padding: 0.5rem;
 	text-align: center;
 }
 
 .card {
-	padding: 2em;
+	padding: 0.5em;
+}
+
+.horizontal-card {
+	display: flex;
+	justify-content: space-around;
+}
+
+.select {
+	margin: 1rem;
 }
