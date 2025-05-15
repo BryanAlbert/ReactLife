@@ -1,6 +1,6 @@
 import Cell from './Cell';
-import type { LifeState } from './Types';
-import './styles/LifeGrid.css';
+import type { LifeState } from '../Types';
+import '../styles/LifeGrid.css';
 
 export interface GridProps {
 	grid: LifeState[][];

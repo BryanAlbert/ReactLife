@@ -1,5 +1,5 @@
-import type { LifeState } from './Types';
-import './styles/cell.css';
+import type { LifeState } from '../Types';
+import '../styles/cell.css';
 
 interface CellProps {
 	row: number;
