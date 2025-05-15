@@ -1,5 +1,6 @@
 import Cell from './Cell';
 import type { LifeState } from '../Types';
+import { updateGridCell } from '../gridFunctions';
 import '../styles/LifeGrid.css';
 
 export interface GridProps {
@@ -8,13 +9,11 @@ export interface GridProps {
 }
 
 const LifeGrid = ({ grid, updateGrid }: GridProps) => {
-	const width = grid[0].length;
-	const height = grid.length;
+	const width: number = grid[0].length;
+	const height: number = grid.length;
+
 	const updateState = (row: number, column: number, state: LifeState): void => {
-		const rows = [...grid];
-		const update = rows.map(column => [...column]);
-		update[row][column] = state;
-		updateGrid(update);
+		updateGrid(updateGridCell(grid, row, column, state));
 	}
 
 	return (

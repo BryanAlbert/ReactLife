@@ -4,6 +4,7 @@ import Footer from './Footer';
 import type { LifeState } from '../Types';
 import { LoadRpentomino } from '../games/Rpentomino';
 import { LoadGosperGliderGun } from '../games/GosperGliderGun';
+import { computeNextGeneration } from '../gridFunctions';
 import '../styles/App.css';
 
 const App = () => {
@@ -54,6 +55,7 @@ const App = () => {
 	}
 
 	const next = (): void => {
+		setGrid(computeNextGeneration(grid));
 		setIsChanged(true);
 	}
 
@@ -68,21 +70,23 @@ const App = () => {
 	return (
 		<>
 			<h2>Conway's Game of Life</h2>
+			<div className="horizontal-card">
+				<p>{`Generation: ${generation}`}</p>
+				<select className="select" value={selectedGrid}
+						onChange={(selected) => setSelectedGrid(selected.target.value)}>
+					<option value="none">none</option>
+					<option value="R-Pentomino">R-pentomino</option>
+					<option value="GosperGliderGun">Gosper Glider Gun</option>
+				</select>
+				<p>{`Population: ${population}`}</p>
+				<p>{`${running ? "R" : "Not r"}unning`}</p>
+			</div>
+
 			<div className="card">
 				<LifeGrid grid={grid} updateGrid={updatedGrid} />
 			</div>
+
 			<div className="card">
-				<div className="horizontal-card">
-					<p>{`Generation: ${generation}`}</p>
-					<select className="select" value={selectedGrid}
-							onChange={(selected) => setSelectedGrid(selected.target.value)}>
-						<option value="none">none</option>
-						<option value="R-Pentomino">R-pentomino</option>
-						<option value="GosperGliderGun">Gosper Glider Gun</option>
-					</select>
-					<p>{`Population: ${population}`}</p>
-					<p>{`${running ? "R" : "Not r"}unning`}</p>
-				</div>
 				<div className="horizontal-card">
 					<button className="button" type="button" onClick={() => reset()}>Reset</button>
 					<button className="button" type="button" disabled={selectedGrid === 'none'}
@@ -94,7 +98,8 @@ const App = () => {
 					</button>
 				</div>
 			</div>
-		<Footer />
+
+			<Footer />
 		</>
 	)
 }

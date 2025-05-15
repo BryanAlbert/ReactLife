@@ -54,15 +54,18 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * I'm (accidentally) using a lot of type inference, go through and declare types (done?)
 * Install the react-devtools (done) and play with it
 * Set size on the buttons so they don't jump around on state changes (done)
+* put controls and status bits in a grid so they're lined up horizontally, or put the status on the top? (Top)
 * Compute the next generation! 
-* put controls and status bits in a grid so they're lined up horizontally, or put the status on the top?
+* Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
+	* Dynamically size the array?
+	* Use a hash instead? 
 
 ## Bugs
 * Load a new grid, population doesn't update (fixed)
 
 ## Questions
 const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
-* Would you guys include the `: JSX.Element` type declaration on a Component signature? It requires importing type JSX from react which seems awkward, and it sounds like this type can be easily inferred. I decided to leave it off...  
+* Would you guys include the `: JSX.Element` type declaration on a Component signature? It requires importing type JSX from react which seems awkward, and it sounds like this type can be easily inferred. I decided to leave it off... 
 
 # React + TypeScript + Vite
 (Written to `README.md` by the Vite installation.)
