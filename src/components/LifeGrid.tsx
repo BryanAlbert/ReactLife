@@ -11,16 +11,14 @@ export interface GridProps {
 const LifeGrid = ({ grid, updateGrid }: GridProps) => {
 	const width: number = grid[0].length;
 	const height: number = grid.length;
-	const updateState = (x: number, y: number, state: LifeState): void => {
-		updateGrid(updateGridCell({ grid, x, y, state }));
-	}
-
 	return (
 		<div className="grid"
 			style={{ '--columns': width, '--rows': height } as React.CSSProperties}>
 				{grid.map((row, y) => row.map((state, x) => (
 					<Cell key={`${row.length * y + x}`} row={y} column={x}
-						state={state} updateState={updateState} />
+						state={state} updateState={(x: number, y: number, state: LifeState): void =>
+							updateGrid(updateGridCell({ grid, x, y, state }))
+						} />
 				)))}
 		</div>
 	);

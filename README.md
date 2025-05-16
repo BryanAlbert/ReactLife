@@ -55,7 +55,9 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Install the react-devtools (done) and play with it
 * Set size on the buttons so they don't jump around on state changes (done)
 * put controls and status bits in a grid so they're lined up horizontally, or put the status on the top? (Top)
-* Compute the next generation! 
+* Compute the next generation! (done)
+* Add a timer and compute the next generation accordingly
+	* Add Faster and Slower buttons
 * Add an About page
 * Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?

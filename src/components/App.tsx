@@ -17,6 +17,8 @@ const App = () => {
 	const [population, setPopulation] = useState<number>(0);
 	const [isChanged, setIsChanged] = useState<boolean>(false);
 	const [running, setRunning] = useState<boolean>(false);
+	const [intervalId, setintervalId] = useState<number>();
+	const [delay, setDelay] = useState<number>(1000);
 
 	useEffect(() => {
 		setPopulation(grid.flat().map((cell) => cell === 'alive' ? 1 : 0).
@@ -58,8 +60,22 @@ const App = () => {
 	}
 
 	const next = (): void => {
-		setGrid(computeNextGeneration({ grid, width, height }));
+		setGrid(current => {
+			return computeNextGeneration({ grid: current, width, height })
+		});
+
+		setGeneration(generation => generation + 1);
 		setIsChanged(true);
+	}
+
+	const toggleRunning = (): void => {
+		if (running) {
+			setRunning(false);
+			clearInterval(intervalId);
+		} else {
+			setRunning(true);
+			setintervalId(setInterval(() => next(), delay));
+		}
 	}
 
 	const updatedGrid = (grid: LifeState[][]): void => {
@@ -90,13 +106,15 @@ const App = () => {
 			</div>
 
 			<div className="horizontal-card">
-				<button className="button" type="button" onClick={() => reset()}>Reset</button>
+				<button className="button" type="button" disabled={population === 0}
+					onClick={() => reset()}>Reset</button>
 				<button className="button" type="button" disabled={selectedGrid === 'none'}
-					onClick={() => load()}>{`${isChanged && selectedGrid !== 'none' ?
-					"Rel" : "L"}oad`}</button>
-				<button className="button" type="button" onClick={() => next()}>Next</button>
-				<button className="button" type="button"
-					onClick={() => setRunning(running => !running)}>{running ? 'Pause' : 'Run'}
+					onClick={() => load()}>{`${isChanged && selectedGrid !== 'none' &&
+					population > 0 ? "Rel" : "L"}oad`}</button>
+				<button className="button" type="button" disabled={population === 0}
+					onClick={() => next()}>Next</button>
+				<button className="button" type="button" disabled={population === 0}
+					onClick={() => toggleRunning()}>{running ? 'Pause' : 'Run'}
 				</button>
 			</div>
 
