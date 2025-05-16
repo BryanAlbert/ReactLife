@@ -8,8 +8,8 @@ import { computeNextGeneration } from '../gridFunctions';
 import '../styles/App.css';
 
 const App = () => {
-	const width = 6;
-	const height = 5;
+	const width = 60;
+	const height = 50;
 
 	const [selectedGrid, setSelectedGrid] = useState<string>('none');
 	const [grid, setGrid] = useState<LifeState[][]>(newGrid());
@@ -79,7 +79,6 @@ const App = () => {
 						onChange={(selected) => setSelectedGrid(selected.target.value)}>
 					<option value="none">none</option>
 					<option value="R-Pentomino">R-pentomino</option>
-					<option value="R-Pentomino-Corner">R-pentomino Corner</option>
 					<option value="GosperGliderGun">Gosper Glider Gun</option>
 				</select>
 				<p>{`Population: ${population}`}</p>
