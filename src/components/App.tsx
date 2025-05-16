@@ -23,6 +23,8 @@ const App = () => {
 	useEffect(() => {
 		setPopulation(grid.flat().map((cell) => cell === 'alive' ? 1 : 0).
 			reduce<number>((sum, cell) => sum + cell, 0));
+
+		setIsChanged(true);
 	}, [grid]);
 
 	function newGrid(): LifeState[][] {
@@ -31,15 +33,17 @@ const App = () => {
 	}
 
 	const reset = (): void => {
+		stopRunning();
 		setSelectedGrid('none');
 		setGrid(newGrid());
 		setGeneration(0);
 		setPopulation(0);
 		setIsChanged(false);
-		setRunning(false);
 	}
 
 	const load = (): void => {
+		stopRunning();
+		setGeneration(1);
 		switch (selectedGrid)
 		{
 			case 'none':
@@ -60,18 +64,18 @@ const App = () => {
 	}
 
 	const next = (): void => {
-		setGrid(current => {
-			return computeNextGeneration({ grid: current, width, height })
-		});
-
 		setGeneration(generation => generation + 1);
-		setIsChanged(true);
+		setGrid(grid => computeNextGeneration({ grid, width, height }));
+	}
+
+	const stopRunning = (): void => {
+			setRunning(false);
+			clearInterval(intervalId);
 	}
 
 	const toggleRunning = (): void => {
 		if (running) {
-			setRunning(false);
-			clearInterval(intervalId);
+			stopRunning();
 		} else {
 			setRunning(true);
 			setintervalId(setInterval(() => next(), delay));
@@ -80,9 +84,6 @@ const App = () => {
 
 	const updatedGrid = (grid: LifeState[][]): void => {
 		setGrid(grid);
-		setPopulation(grid.flat().map((cell) => cell === 'alive' ? 1 : 0).
-			reduce<number>((sum, cell) => sum + cell, 0));
-
 		setIsChanged(true);
 	}
 
@@ -90,13 +91,13 @@ const App = () => {
 		<>
 			<h2>Conway's Game of Life</h2>
 			<div className="horizontal-card">
-				<p>{`Generation: ${generation}`}</p>
 				<select className="select" value={selectedGrid}
 						onChange={(selected) => setSelectedGrid(selected.target.value)}>
 					<option value="none">none</option>
 					<option value="R-Pentomino">R-pentomino</option>
 					<option value="GosperGliderGun">Gosper Glider Gun</option>
 				</select>
+				<p>{`Generation: ${generation}`}</p>
 				<p>{`Population: ${population}`}</p>
 				<p>{`${running ? "R" : "Not r"}unning`}</p>
 			</div>
@@ -106,16 +107,16 @@ const App = () => {
 			</div>
 
 			<div className="horizontal-card">
-				<button className="button" type="button" disabled={population === 0}
-					onClick={() => reset()}>Reset</button>
 				<button className="button" type="button" disabled={selectedGrid === 'none'}
 					onClick={() => load()}>{`${isChanged && selectedGrid !== 'none' &&
-					population > 0 ? "Rel" : "L"}oad`}</button>
+						population > 0 ? "Rel" : "L"}oad`}</button>
+				<button className="button" type="button" disabled={population === 0 ||
+					running} onClick={() => next()}>Next</button>
 				<button className="button" type="button" disabled={population === 0}
-					onClick={() => next()}>Next</button>
-				<button className="button" type="button" disabled={population === 0}
-					onClick={() => toggleRunning()}>{running ? 'Pause' : 'Run'}
+					onClick={() => toggleRunning()}>{running ? 'Stop' : 'Run'}
 				</button>
+				<button className="button" type="button" disabled={population === 0}
+					onClick={() => reset()}>Reset</button>
 			</div>
 
 			<Footer />
