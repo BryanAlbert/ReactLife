@@ -1,4 +1,5 @@
 import Cell from './Cell';
+import type { ReactElement } from 'react';
 import type { LifeState } from '../Types';
 import { updateGridCell } from '../gridFunctions';
 import '../styles/LifeGrid.css';
@@ -8,7 +9,7 @@ export interface GridProps {
 	updateGrid: (grid: LifeState[][]) => void;
 }
 
-const LifeGrid = ({ grid, updateGrid }: GridProps) => {
+const LifeGrid = ({ grid, updateGrid }: GridProps): ReactElement => {
 	const width: number = grid[0].length;
 	const height: number = grid.length;
 	return (
