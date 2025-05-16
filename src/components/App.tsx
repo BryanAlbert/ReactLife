@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type ReactElement } from 'react';
 import LifeGrid from './LifeGrid';
 import Footer from './Footer';
 import type { LifeState } from '../Types';
@@ -7,7 +7,7 @@ import { loadGosperGliderGun } from '../games/GosperGliderGun';
 import { computeNextGeneration } from '../gridFunctions';
 import '../styles/App.css';
 
-const App = () => {
+const App = (): ReactElement => {
 	const width = 60;
 	const height = 50;
 

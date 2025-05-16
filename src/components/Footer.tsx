@@ -1,8 +1,9 @@
+import type { ReactElement } from 'react';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 import '../styles/Footer.css';
 
-const Footer = () => {
+const Footer = (): ReactElement => {
 	return (
 		<div className="footer">
 			<p>Built with Vite and React
