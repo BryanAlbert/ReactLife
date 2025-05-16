@@ -56,6 +56,7 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Set size on the buttons so they don't jump around on state changes (done)
 * put controls and status bits in a grid so they're lined up horizontally, or put the status on the top? (Top)
 * Compute the next generation! 
+* Add an About page
 * Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?
 	* Use a hash instead? 

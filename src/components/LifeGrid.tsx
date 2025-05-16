@@ -11,9 +11,8 @@ export interface GridProps {
 const LifeGrid = ({ grid, updateGrid }: GridProps) => {
 	const width: number = grid[0].length;
 	const height: number = grid.length;
-
-	const updateState = (row: number, column: number, state: LifeState): void => {
-		updateGrid(updateGridCell(grid, row, column, state));
+	const updateState = (x: number, y: number, state: LifeState): void => {
+		updateGrid(updateGridCell({ grid, x, y, state }));
 	}
 
 	return (

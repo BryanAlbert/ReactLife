@@ -7,6 +7,9 @@
 
 .card {
 	padding: 0.5em;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 0.5em;
 }
 
 .horizontal-card {

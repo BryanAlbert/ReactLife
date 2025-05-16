@@ -1,7 +1,7 @@
 import type { LifeState } from "../Types";
 
-// LifeState has the shape [column][row]
-export const LoadGosperGliderGun = (newGrid: () => LifeState[][]): LifeState[][] =>	{
+// LifeState[][] has the shape [row][column] (row major)
+export const loadGosperGliderGun = (newGrid: () => LifeState[][]): LifeState[][] =>	{
 	const grid: LifeState[][] = newGrid();
 	grid[1][25] = 'alive';
 	grid[2][23] = 'alive';

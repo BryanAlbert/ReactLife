@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import LifeGrid from './LifeGrid';
 import Footer from './Footer';
 import type { LifeState } from '../Types';
-import { LoadRpentomino } from '../games/Rpentomino';
-import { LoadGosperGliderGun } from '../games/GosperGliderGun';
+import { loadRpentomino, loadRpentominoCorner } from '../games/Rpentomino';
+import { loadGosperGliderGun } from '../games/GosperGliderGun';
 import { computeNextGeneration } from '../gridFunctions';
 import '../styles/App.css';
 
 const App = () => {
-	const width = 60;
-	const height = 50;
+	const width = 6;
+	const height = 5;
 
 	const [selectedGrid, setSelectedGrid] = useState<string>('none');
 	const [grid, setGrid] = useState<LifeState[][]>(newGrid());
@@ -44,10 +44,13 @@ const App = () => {
 				reset();
 				break;
 			case 'R-Pentomino':
-				setGrid(LoadRpentomino(newGrid));
+				setGrid(loadRpentomino(newGrid));
+				break;
+			case 'R-Pentomino-Corner':
+				setGrid(loadRpentominoCorner(newGrid));
 				break;
 			case 'GosperGliderGun':
-				setGrid(LoadGosperGliderGun(newGrid));
+				setGrid(loadGosperGliderGun(newGrid));
 				break;
 		}
 
@@ -55,7 +58,7 @@ const App = () => {
 	}
 
 	const next = (): void => {
-		setGrid(computeNextGeneration(grid));
+		setGrid(computeNextGeneration({ grid, width, height }));
 		setIsChanged(true);
 	}
 
@@ -76,6 +79,7 @@ const App = () => {
 						onChange={(selected) => setSelectedGrid(selected.target.value)}>
 					<option value="none">none</option>
 					<option value="R-Pentomino">R-pentomino</option>
+					<option value="R-Pentomino-Corner">R-pentomino Corner</option>
 					<option value="GosperGliderGun">Gosper Glider Gun</option>
 				</select>
 				<p>{`Population: ${population}`}</p>
@@ -86,17 +90,15 @@ const App = () => {
 				<LifeGrid grid={grid} updateGrid={updatedGrid} />
 			</div>
 
-			<div className="card">
-				<div className="horizontal-card">
-					<button className="button" type="button" onClick={() => reset()}>Reset</button>
-					<button className="button" type="button" disabled={selectedGrid === 'none'}
-						onClick={() => load()}>{`${isChanged && selectedGrid !== 'none' ?
-						"Rel" : "L"}oad`}</button>
-					<button className="button" type="button" onClick={() => next()}>Next</button>
-					<button className="button" type="button"
-						onClick={() => setRunning(running => !running)}>{running ? 'Pause' : 'Run'}
-					</button>
-				</div>
+			<div className="horizontal-card">
+				<button className="button" type="button" onClick={() => reset()}>Reset</button>
+				<button className="button" type="button" disabled={selectedGrid === 'none'}
+					onClick={() => load()}>{`${isChanged && selectedGrid !== 'none' ?
+					"Rel" : "L"}oad`}</button>
+				<button className="button" type="button" onClick={() => next()}>Next</button>
+				<button className="button" type="button"
+					onClick={() => setRunning(running => !running)}>{running ? 'Pause' : 'Run'}
+				</button>
 			</div>
 
 			<Footer />
