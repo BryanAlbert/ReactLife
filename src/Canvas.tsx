@@ -37,11 +37,15 @@ export const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactE
 	}, [grid, width, height]);
 
 	const clickHandler = ((event: React.MouseEvent<HTMLCanvasElement>): void => {
-		const boundingRect: DOMRect | undefined = canvasRef.current?.getBoundingClientRect();
-		const row: number = Math.floor((event.clientX - (boundingRect?.left ?? 0)) / (m_cellSize + 1));
-		const column: number = Math.floor((event.clientY - (boundingRect?.top ?? 0)) / (m_cellSize + 1));
-		updateGrid(updateGridCell({ grid, x: column, y: row,
-			state:grid[column][row] === 'alive' ? 'none' : 'alive' }));
+		const bounds: DOMRect | undefined = canvasRef.current?.getBoundingClientRect();
+		const row: number = Math.floor((event.clientY - (bounds?.top ?? 0)) / (m_cellSize + 1));
+		const column: number = Math.floor((event.clientX - (bounds?.left ?? 0)) / (m_cellSize + 1));
+
+		const state = grid[row][column] === 'alive' ? 'none' : 'alive';
+		console.log(`Cell row ${row}, column ${column} changed from ` +
+			 `"${grid[row][column]}" to "${state}".`);
+
+		updateGrid(updateGridCell({ grid, row, column, state }));
 	});
 
 	return (

@@ -58,16 +58,19 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Compute the next generation! (done)
 * Add a timer and compute the next generation accordingly (done)
 * Use a canvas instead of the Cell collection for performance (done!)
-* Add Faster and Slower buttons, etc.
-* Add an About page
+* Add Faster and Slower buttons, etc. (done)
+* Make Reload button smarter, change to Load if the select value changes
+* Add an About page?
+* Load/save games? That would be cool, actually...
+* Make a different speed control? Click and hold the buttons? 
 * Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?
 	* Use a hash instead? 
 
 ## Bugs
 * Load a new grid, population doesn't update (fixed)
-* mdn web docs, e.g. https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
-* My albistix React web app
+* Gosper Glider Gun doesn't shoot gliders (fixed)
+* Controls' disabled status
 
 ## Questions
 const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
@@ -75,7 +78,10 @@ const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
 
 ## References
 * VS Code Copilot for things like syntax, explaining React nuances like reviewing React.Memo, etc. 
+* mdn web docs, e.g. https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+* My albistix React web app
 * 
+
 # React + TypeScript + Vite
 (Written to `README.md` by the Vite installation.)
 
