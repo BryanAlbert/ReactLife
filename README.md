@@ -56,8 +56,9 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Set size on the buttons so they don't jump around on state changes (done)
 * put controls and status bits in a grid so they're lined up horizontally, or put the status on the top? (Top)
 * Compute the next generation! (done)
-* Add a timer and compute the next generation accordingly
-	* Add Faster and Slower buttons
+* Add a timer and compute the next generation accordingly (done)
+* Use a canvas instead of the Cell collection for performance (done!)
+* Add Faster and Slower buttons, etc.
 * Add an About page
 * Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?
@@ -65,11 +66,16 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 
 ## Bugs
 * Load a new grid, population doesn't update (fixed)
+* mdn web docs, e.g. https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+* My albistix React web app
 
 ## Questions
 const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
 * Would you guys include the `: JSX.Element` type declaration on a Component signature? It requires importing type JSX from react which seems awkward, and it sounds like this type can be easily inferred. I decided to leave it off... 
 
+## References
+* VS Code Copilot for things like syntax, explaining React nuances like reviewing React.Memo, etc. 
+* 
 # React + TypeScript + Vite
 (Written to `README.md` by the Vite installation.)
 

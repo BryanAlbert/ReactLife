@@ -1,7 +1,7 @@
 import { useState, useEffect, type ReactElement } from 'react';
-import LifeGrid from './LifeGrid';
-import Footer from './Footer';
 import type { LifeState } from '../Types';
+import { Canvas } from '../Canvas';
+import Footer from './Footer';
 import { loadRpentomino, loadRpentominoCorner } from '../games/Rpentomino';
 import { loadGosperGliderGun } from '../games/GosperGliderGun';
 import { computeNextGeneration } from '../gridFunctions';
@@ -103,7 +103,7 @@ const App = (): ReactElement => {
 			</div>
 
 			<div className="card">
-				<LifeGrid grid={grid} updateGrid={updatedGrid} />
+				<Canvas grid={grid} width={width} height={height} updateGrid={updatedGrid} />
 			</div>
 
 			<div className="horizontal-card">

@@ -9,11 +9,9 @@ interface CellProps {
 	updateState: (row: number, column: number, living: LifeState) => void;
 }
 
-const Cell = ({ row, column, state, updateState }: CellProps): ReactElement => {
-	return (
-		<div className={ `cell ${state}`}
-			onClick={() => updateState(row, column, state === 'alive' ? 'none' : 'alive')} />
-	);
-}
+const Cell = ({ row, column, state, updateState }: CellProps): ReactElement => (
+	<div className={`cell ${state}`}
+		onClick={() => updateState(row, column, state === 'alive' ? 'none' : 'alive')} />
+)
 
 export default Cell;
