@@ -4,6 +4,9 @@ import type { LifeState } from '../Types';
 import { updateGridCell } from '../gridFunctions';
 import '../styles/LifeGrid.css';
 
+// Due to performance problems, this component (and the Cell component) have been 
+// replaced with the Canvas component. It's left in the codebase for posterity. 
+
 export interface GridProps {
 	grid: LifeState[][];
 	updateGrid: (grid: LifeState[][]) => void;
@@ -15,10 +18,10 @@ const LifeGrid = ({ grid, updateGrid }: GridProps): ReactElement => {
 	return (
 		<div className="grid"
 			style={{ '--columns': width, '--rows': height } as React.CSSProperties}>
-				{grid.map((row, y) => row.map((state, x) => (
-					<Cell key={`${row.length * y + x}`} row={y} column={x}
-						state={state} updateState={(x: number, y: number, state: LifeState): void =>
-							updateGrid(updateGridCell({ grid, x, y, state }))
+				{grid.map((line, row) => line.map((state, column) => (
+					<Cell key={`${line.length * row + column}`} row={row} column={column}
+						state={state} updateState={(row: number, column: number, state: LifeState): void =>
+							updateGrid(updateGridCell({ grid, row, column, state }))
 						} />
 				)))}
 		</div>

@@ -5,7 +5,7 @@ export const loadGosperGliderGun = (newGrid: () => LifeState[][]): LifeState[][]
 	const grid: LifeState[][] = newGrid();
 	grid[1][25] = 'alive';
 	grid[2][23] = 'alive';
-	grid[2][24] = 'alive';
+	grid[2][25] = 'alive';
 	grid[3][13] = 'alive';
 	grid[3][14] = 'alive';
 	grid[3][21] = 'alive';
