@@ -11,8 +11,8 @@ import DiscreteSlider from './Slider';
 const App = (): ReactElement => {
 	const width = 60;
 	const height = 50;
-	const initialDelay = 1000;
-	const delayStepSize = 50;
+	const initialDelay = 500;
+	const delayStepSize = 10;
 	const minimumDelay = 0;
 	const maximumDelay = 1000;
 
@@ -80,19 +80,8 @@ const App = (): ReactElement => {
 	}
 
 	const next = (): void => {
-		console.log(`Computing next generation at ${new Date().toISOString()}`);
 		setGeneration(generation => generation + 1);
 		setGrid(grid => computeNextGeneration({ grid, width, height }));
-	}
-
-	const changeDelay = (offset: number): void => {
-		console.log(`Changing delay to: ${Math.max(minimumDelay, delay + offset)}`);
-		setDelay(delay => Math.max(minimumDelay, delay + offset));
-	}
-
-	const updateDelay = (delay: number): void => {
-		console.log(`Changing delay to: ${delay}`);
-		setDelay(delay);
 	}
 
 	const updatedGrid = (grid: LifeState[][]): void => {
@@ -131,7 +120,7 @@ const App = (): ReactElement => {
 					onClick={() => setRunning(running => !running)}>{running ? 'Stop' : 'Run'}
 				</button>
 				<DiscreteSlider initial={initialDelay} min={minimumDelay} max={maximumDelay}
-					step={delayStepSize} update={updateDelay}/>
+					step={delayStepSize} update={(delay) => setDelay(delay)}/>
 			</div>
 
 			<Footer />

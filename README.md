@@ -61,10 +61,10 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Add a timer and compute the next generation accordingly (done)
 * Use a canvas instead of the Cell collection for performance (done!)
 * Add Faster and Slower buttons, etc. (done)
-* Make Reload button smarter, change to Load if the select value changes
+* Make Reload button smarter, change to Load if the select value changes (done)
+* Make a different speed control? Click and hold the buttons? Use a slider? (done)
 * Add an About page?
-* Load/save games? That would be cool, actually...
-* Make a different speed control? Click and hold the buttons? 
+* Load/save games? That would be cool, actually... looks straightforward enough... uses only the Download folder. 
 * Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?
 	* Use a hash instead? 

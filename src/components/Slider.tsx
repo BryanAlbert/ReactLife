@@ -12,14 +12,16 @@ interface SliderProps {
 
 const DiscreteSlider = ({ initial, min, max, step, update }: SliderProps): ReactElement => {
   const [value, setValue] = useState<number>(initial);
-  const handleChange = (event: Event, newValue: number): void => {
+  const handleChange = (_: Event, newValue: number): void => {
     setValue(newValue);
     update(newValue);
   }
 
   return (
-    <Slider className="slider" value={value} min={min} max={max} step={step}
-      valueLabelDisplay="auto" onChange={handleChange} />
+    <div className="slider">
+      <Slider value={value} min={min} max={max} step={step}
+        valueLabelDisplay="auto" onChange={handleChange} />
+    </div>
   )
 }
 
