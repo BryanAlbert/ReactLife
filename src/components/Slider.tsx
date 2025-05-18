@@ -1,5 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { Slider } from '@mui/material';
+import '../styles/Slider.css'
 
 interface SliderProps {
   initial: number;
@@ -17,7 +18,8 @@ const DiscreteSlider = ({ initial, min, max, step, update }: SliderProps): React
   }
 
   return (
-    <Slider value={value} min={min} max={max} step={step} onChange={handleChange} />
+    <Slider className="slider" value={value} min={min} max={max} step={step}
+      valueLabelDisplay="auto" onChange={handleChange} />
   )
 }
 

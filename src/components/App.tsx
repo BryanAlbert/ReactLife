@@ -6,6 +6,7 @@ import { loadRpentomino, loadRpentominoCorner } from '../games/Rpentomino';
 import { loadGosperGliderGun } from '../games/GosperGliderGun';
 import { computeNextGeneration } from '../gridFunctions';
 import '../styles/App.css';
+import DiscreteSlider from './Slider';
 
 const App = (): ReactElement => {
 	const width = 60;
@@ -13,8 +14,10 @@ const App = (): ReactElement => {
 	const initialDelay = 1000;
 	const delayStepSize = 50;
 	const minimumDelay = 0;
+	const maximumDelay = 1000;
 
 	const [selectedGrid, setSelectedGrid] = useState<string>('none');
+	const [currentGrid, setCurrentGrid] = useState<string>('none');
 	const [grid, setGrid] = useState<LifeState[][]>(newGrid());
 	const [generation, setGeneration] = useState<number>(0);
 	const [population, setPopulation] = useState<number>(0);
@@ -46,6 +49,7 @@ const App = (): ReactElement => {
 		setRunning(false);
 		setDelay(initialDelay);
 		setSelectedGrid('none');
+		setCurrentGrid('none');
 		setGrid(newGrid());
 		setGeneration(0);
 		setPopulation(0);
@@ -55,6 +59,7 @@ const App = (): ReactElement => {
 	const load = (): void => {
 		setRunning(false);
 		setGeneration(1);
+		setCurrentGrid(selectedGrid);
 		switch (selectedGrid)
 		{
 			case 'none':
@@ -85,6 +90,11 @@ const App = (): ReactElement => {
 		setDelay(delay => Math.max(minimumDelay, delay + offset));
 	}
 
+	const updateDelay = (delay: number): void => {
+		console.log(`Changing delay to: ${delay}`);
+		setDelay(delay);
+	}
+
 	const updatedGrid = (grid: LifeState[][]): void => {
 		setGrid(grid);
 		setIsChanged(true);
@@ -112,7 +122,7 @@ const App = (): ReactElement => {
 			<div className="horizontal-card">
 				<button className="button" type="button" disabled={selectedGrid === 'none'}
 					onClick={() => load()}>{`${isChanged && selectedGrid !== 'none' &&
-						population > 0 ? "Rel" : "L"}oad`}</button>
+					selectedGrid === currentGrid ? "Rel" : "L"}oad`}</button>
 				<button className="button" type="button" disabled={population === 0}
 					onClick={() => reset()}>Reset</button>
 				<button className="button" type="button" disabled={population === 0 ||
@@ -120,10 +130,8 @@ const App = (): ReactElement => {
 				<button className="button" type="button" disabled={population === 0}
 					onClick={() => setRunning(running => !running)}>{running ? 'Stop' : 'Run'}
 				</button>
-				<button className="button" type="button" disabled={!running || delay <= minimumDelay}
-					onClick={() => changeDelay(-delayStepSize)}>Faster</button>
-				<button className="button" type="button" disabled={!running}
-					onClick={() => changeDelay(delayStepSize)}>Slower</button>
+				<DiscreteSlider initial={initialDelay} min={minimumDelay} max={maximumDelay}
+					step={delayStepSize} update={updateDelay}/>
 			</div>
 
 			<Footer />

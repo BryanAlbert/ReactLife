@@ -7,7 +7,8 @@ To Create a React app in Visual Studio Code:
 * Run `npm install react react-dom` to install React
 * Run `npm install --save-dev @types/react @types/react-dom` to install React type definitions (necessary for return types of React components, etc.?)
 * From the parent directory, run `npm create vite@latest React --template react-ts`, react-life for the package name, react for the framework, TypeScript for the variant
-* npm `install @mui/material @mui/icons-material` to install Material UI slider
+* `npm install @mui/material @mui/icons-material` to install Material UI slider
+* `npm install @emotion/react @emotion/styled` to for @mus/styled-engine?
 * `cd React`
 * `npm install`
 * `npm run dev` to launch the app, open http://localhost:5173 to see it
