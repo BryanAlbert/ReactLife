@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactElement } from "react";
-import type { LifeState } from "./Types";
-import { updateGridCell } from "./gridFunctions";
+import type { LifeState } from "../Types";
+import { updateGridCell } from "../gridFunctions";
 
 interface CanvasProps {
 	grid: LifeState[][];
@@ -11,7 +11,7 @@ interface CanvasProps {
 
 const m_cellSize: number = 10;
 
-export const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement => {
+const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
  
 	useEffect(() => {
@@ -53,3 +53,5 @@ export const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactE
 			onClick={clickHandler} />
 	);
 }
+
+export default Canvas;

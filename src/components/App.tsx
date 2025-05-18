@@ -1,6 +1,6 @@
 import { useState, useEffect, type ReactElement } from 'react';
 import type { LifeState } from '../Types';
-import { Canvas } from '../Canvas';
+import Canvas from './Canvas';
 import Footer from './Footer';
 import { loadRpentomino, loadRpentominoCorner } from '../games/Rpentomino';
 import { loadGosperGliderGun } from '../games/GosperGliderGun';
@@ -31,7 +31,6 @@ const App = (): ReactElement => {
 
 	useEffect(() => {
 		const id: number | null = running ? setInterval(next, delay) : null;
-
 		return () => {
 			if (id)
 				clearInterval(id);

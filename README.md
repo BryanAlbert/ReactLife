@@ -7,6 +7,7 @@ To Create a React app in Visual Studio Code:
 * Run `npm install react react-dom` to install React
 * Run `npm install --save-dev @types/react @types/react-dom` to install React type definitions (necessary for return types of React components, etc.?)
 * From the parent directory, run `npm create vite@latest React --template react-ts`, react-life for the package name, react for the framework, TypeScript for the variant
+* npm `install @mui/material @mui/icons-material` to install Material UI slider
 * `cd React`
 * `npm install`
 * `npm run dev` to launch the app, open http://localhost:5173 to see it
@@ -80,7 +81,8 @@ const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
 * VS Code Copilot for things like syntax, explaining React nuances like reviewing React.Memo, etc. 
 * mdn web docs, e.g. https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
 * My albistix React web app
-* 
+* https://mui.com/material-ui/react-slider/
+
 
 # React + TypeScript + Vite
 (Written to `README.md` by the Vite installation.)
