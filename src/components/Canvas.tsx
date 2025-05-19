@@ -41,10 +41,9 @@ const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement 
 		const row: number = Math.floor((event.clientY - (bounds?.top ?? 0)) / (m_cellSize + 1));
 		const column: number = Math.floor((event.clientX - (bounds?.left ?? 0)) / (m_cellSize + 1));
 
+		// log new grid cell value (see generateLoadFunctionInLog)
 		const state = grid[row][column] === 'alive' ? 'none' : 'alive';
-		console.log(`Cell row ${row}, column ${column} changed from ` +
-			 `"${grid[row][column]}" to "${state}".`);
-
+		console.log(`\tgrid[${row}][${column}] = 'alive';`);
 		updateGrid(updateGridCell({ grid, row, column, state }));
 	});
 

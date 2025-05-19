@@ -52,3 +52,13 @@ export const computeNextGeneration = ({ grid, width, height }: GridProps):
 	return next;
 }
 
+// On Reset, write the signature for a new load grid function to the console log. The 
+// Canvas component's onClick handler writes the cell data, e.g. grid[4][5] = 'alive';. 
+// To create a new game, Reset then click each cell in the grid to write the data. 
+// Copy the output from console output and paste it to a new .tsx file, then add it 
+// to the App component's selector control and the load function. 
+export const generateLoadFunctionInLog = (): void => {
+	console.log("import type { LifeState } from '../Types';\n");
+	console.log('export const load = (newGrid: () => LifeState[][]): LifeState[][] => {');
+	console.log('const grid: LifeState[][] = newGrid();');
+}

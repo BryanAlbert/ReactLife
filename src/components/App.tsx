@@ -4,9 +4,11 @@ import Canvas from './Canvas';
 import Footer from './Footer';
 import { loadRpentomino, loadRpentominoCorner } from '../games/Rpentomino';
 import { loadGosperGliderGun } from '../games/GosperGliderGun';
-import { computeNextGeneration } from '../gridFunctions';
+import { computeNextGeneration, generateLoadFunctionInLog } from '../gridFunctions';
 import '../styles/App.css';
 import DiscreteSlider from './Slider';
+import { loadOscillators, } from '../games/Oscillators';
+import { loadSpaceShips } from '../games/SpaceShips';
 
 const App = (): ReactElement => {
 	const width = 60;
@@ -17,23 +19,23 @@ const App = (): ReactElement => {
 	const maximumDelay = 1000;
 
 	const [selectedGrid, setSelectedGrid] = useState<string>('none');
-	const [currentGrid, setCurrentGrid] = useState<string>('none');
 	const [grid, setGrid] = useState<LifeState[][]>(newGrid());
 	const [generation, setGeneration] = useState<number>(0);
 	const [population, setPopulation] = useState<number>(0);
-	const [isChanged, setIsChanged] = useState<boolean>(false);
 	const [running, setRunning] = useState<boolean>(false);
 	const [delay, setDelay] = useState<number>(initialDelay);
 
 	useEffect(() => {
-		setPopulation(grid.flat().map(cell => cell === 'alive' ? 1 : 0).
-			reduce<number>((sum, cell) => sum + cell, 0));
+		const current = grid.flat().map(cell => cell === 'alive' ? 1 : 0).
+			reduce<number>((sum, cell) => sum + cell, 0);
 
-		setIsChanged(true);
+		setPopulation(current);
+		if (current === 0)
+			setRunning(false);
 	}, [grid]);
 
 	useEffect(() => {
-		const id: number | null = running ? setInterval(next, delay) : null;
+		const id: number | null = running ? setInterval(next, maximumDelay - delay) : null;
 		return () => {
 			if (id)
 				clearInterval(id);
@@ -47,20 +49,22 @@ const App = (): ReactElement => {
 
 	const reset = (): void => {
 		setRunning(false);
-		setDelay(initialDelay);
 		setSelectedGrid('none');
-		setCurrentGrid('none');
 		setGrid(newGrid());
 		setGeneration(0);
 		setPopulation(0);
-		setIsChanged(false);
+		generateLoadFunctionInLog();
 	}
 
-	const load = (): void => {
+	const handleSelectorChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+		setSelectedGrid(event.target.value);
+		load(event.target.value)
+	}
+
+	const load = (selected: string): void => {
 		setRunning(false);
 		setGeneration(1);
-		setCurrentGrid(selectedGrid);
-		switch (selectedGrid)
+		switch (selected)
 		{
 			case 'none':
 				reset();
@@ -74,9 +78,13 @@ const App = (): ReactElement => {
 			case 'GosperGliderGun':
 				setGrid(loadGosperGliderGun(newGrid));
 				break;
+			case 'Oscillators':
+				setGrid(loadOscillators(newGrid));
+				break;
+			case 'SpaceShips':
+				setGrid(loadSpaceShips(newGrid));
+				break;
 		}
-
-		setIsChanged(false);
 	}
 
 	const next = (): void => {
@@ -84,20 +92,17 @@ const App = (): ReactElement => {
 		setGrid(grid => computeNextGeneration({ grid, width, height }));
 	}
 
-	const updatedGrid = (grid: LifeState[][]): void => {
-		setGrid(grid);
-		setIsChanged(true);
-	}
-
 	return (
 		<>
 			<h2>Conway's Game of Life</h2>
 			<div className="horizontal-card">
 				<select className="select" value={selectedGrid}
-						onChange={selected => setSelectedGrid(selected.target.value)}>
-					<option value="none">none</option>
+						onChange={(event) => handleSelectorChange(event)}>
+					<option value="none">Select a game...</option>
 					<option value="R-Pentomino">R-pentomino</option>
 					<option value="GosperGliderGun">Gosper Glider Gun</option>
+					<option value="Oscillators">Oscillators</option>
+					<option value="SpaceShips">Space Ships</option>
 				</select>
 				<p>{`Generation: ${generation}`}</p>
 				<p>{`Population: ${population}`}</p>
@@ -105,13 +110,12 @@ const App = (): ReactElement => {
 			</div>
 
 			<div className="card">
-				<Canvas grid={grid} width={width} height={height} updateGrid={updatedGrid} />
+				<Canvas grid={grid} width={width} height={height} updateGrid={(grid) => setGrid(grid)} />
 			</div>
 
 			<div className="horizontal-card">
 				<button className="button" type="button" disabled={selectedGrid === 'none'}
-					onClick={() => load()}>{`${isChanged && selectedGrid !== 'none' &&
-					selectedGrid === currentGrid ? "Rel" : "L"}oad`}</button>
+					onClick={() => load(selectedGrid)}>Reload</button>
 				<button className="button" type="button" disabled={population === 0}
 					onClick={() => reset()}>Reset</button>
 				<button className="button" type="button" disabled={population === 0 ||

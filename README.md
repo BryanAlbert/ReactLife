@@ -47,6 +47,12 @@ The upside-down R-pentomino example in the Wikipedia article diverges from my ve
 An enhancement, then, could be to compute assuming an infinitely-large field. This could be complicated since some shapes such as "gliders" and "space ships" can traverse the grid indefinitely, requiring a larger and larger grid. We could grow the grid as necessary, which could be problematic with size issues and buffer manipulation. We could also use a different storage mechanism, such as a hash table, which could be implemented with a JavaScript Map object. 
 
 ## TODO:
+* Prepare materials for the interview, due at noon on Monday
+	* Create a list of resources (sites, people, forums, etc.), check browser history, how to list Copilot interactions?
+	* Push both Life repos to public repositories, supply a link
+	* Provide a link to my albistix repo
+	* Provide a link to my Boggle repo, the Windows download, or screenshots? 
+
 * Make components for LifeGrid and Cell (done)
 	* LifeGrid holds the array, let's make that an Array of Arrays (start with a simple LifeState)
 	* Cell gets a function for setting that cell's state in LifeGrid's data
@@ -62,9 +68,14 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Use a canvas instead of the Cell collection for performance (done!)
 * Add Faster and Slower buttons, etc. (done)
 * Make Reload button smarter, change to Load if the select value changes (done)
-* Make a different speed control? Click and hold the buttons? Use a slider? (done)
-* Add an About page?
-* Load/save games? That would be cool, actually... looks straightforward enough... uses only the Download folder. 
+* Make a different speed control? Click and hold the buttons? Use a slider? (done with a slider)
+* Swap the slider so faster (shorter delay) is on the right (done, though the tool tip doesn't really make sense anymore... )
+* Add installation instructions to the README (instead of the configuration instructions)
+* Log point clicks in code format (e.g. `grid[4][5] = 'alive';`) so that they can be copied and pasted into a new `tsx` file, Reset should write the function signature, etc. (done)
+* "Auto Load" when a game is selected from the selector (done, simplified the code quite a bit)
+* Change none option in App selector to "Select a game..." (done)
+* Add an About page or popup with instructions? Include the rules and instructions--clicking on the grid, loading games, etc. How about on initial load, display the instructions in a dialog with an OK button. 
+* Load/save games? 
 * Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?
 	* Use a hash instead? 
@@ -72,7 +83,11 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 ## Bugs
 * Load a new grid, population doesn't update (fixed)
 * Gosper Glider Gun doesn't shoot gliders (fixed)
-* Controls' disabled status
+* Controls' disabled status (fixed)
+* On delay 0, don't run the setInterval?  
+* Stop running when population goes to zero
+* gliders should glide off the edge
+* Store grid data in an array and load it instead of hard-coding the grids? 
 
 ## Questions
 const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
