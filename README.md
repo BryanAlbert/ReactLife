@@ -1,51 +1,46 @@
 # Conway's Game of Life, React
 A coding exercise, to run the life simulation in a React app.
 
+### Rules
+Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) wikipedia page:
+1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+2. Any live cell with two or three live neighbors lives on to the next generation.
+3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+
 ## Running the program
 To get the Game of Life running on your computer:
 1. Install Node.js as necessary (see [nodejs.org](https://nodejs.org/en) for installation instructions)
 2. Clone the repository
 3. In your terminal, `cd` to the directory and run `npm run dev` to launch the server, type `o [Enter]` to open the app on http://localhost:5173/.  
 
-Note that there's also a Console app version I wrote to work out the algorithm and learn TypeScript, it's got some `async` and `await` and `process.stdin\stdout` that was interesting. 
+Note that there's also a node.js [Console app](https://github.com/BryanAlbert/ConsoleLife) version I wrote to work out the algorithm and learn TypeScript, it's got some `async` and `await` and `process.stdin\stdout` that was interesting. 
 
-## Rules
-Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) wikipedia page.
-1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
-2. Any live cell with two or three live neighbors lives on to the next generation.
-3. Any live cell with more than three live neighbors dies, as if by overpopulation.
-4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+For more detailed instructions on configuring the React-TypeScript-Vite environment, see [Initial Configuration](#initial-configuration) below.
 
-## Initial Configuration
-These are notes about how I got React with TypeScript up and running with Vite in Visual Studio Code.
-To Create a React app in Visual Studio Code:
-* Run `npm init -y` to create a Node.js `package.json` file
-* Run `npm install react react-dom` to install React
-* Run `npm install --save-dev @types/react @types/react-dom` to install React type definitions (necessary for return types of React components, etc.?)
-* From the parent directory, run `npm create vite@latest React --template react-ts`, react-life for the package name, react for the framework, TypeScript for the variant
-* `npm install @mui/material @mui/icons-material` to install Material UI slider
-* `npm install @emotion/react @emotion/styled` to for @mus/styled-engine?
-* `cd React`
-* `npm install`
-* `npm run dev` to launch the app, open http://localhost:5173 to see it
+## References
+* https://en.wikipedia.org/wiki/Conway's_Game_of_Life
+* VS Code Copilot, some Chat GTP (chatgtp.com) for cross referencing answers where Copilot seemed confused
+	* Questions on syntax
+	* Explaining/reviewing React nuances like the return value on useEffect
+	* Figuring out VS Code configuration stuff(eslinting with TypeScript, getting Vite running, etc.)
+	* Analyzing errors (syntax, runtime, etc.), and so on
+	* I did not copy/paste code written by Copilot as I wanted to write and understand the code myself, so I did not ask broad questions like, "How would I write Conway's Game of Life?"
+	* I turned off Copilot's Code Completions and Next Edit Suggestions as I find them distracting and because I need to struggle with syntax, etc. to learn the framework
+* mdn web docs, e.g. https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+* My albistix React web app where I first used React
+* Material UI for several components, https://mui.com/material-ui/react-slider/ and https://mui.com/material-ui/react-dialog/
+* Stack Overflow, though honestly not as useful as Copilot
+* Several links from medium.com for general reference such as https://medium.com/@martin.crabtree/react-creating-an-interactive-canvas-component-e8e88243baf6, (not that useful, actually)
 
-### Update eslint
-To get TypeScript-related eslinting:
-* Update `eslint.config.js` as per instructions below
-* Install relevant packages with `npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-react-x eslint-plugin-react-dom --save-dev`
-* install ESLint extension (Ctrl + Shift + X)
+## Questions
+* I used to write lots of comments but but years ago, following a general trend, I tried harder to make the code self-explanatory. I now try to write comments when I feel like something isn't obvious, when the motivation behind the code needs clarification, or if there's something that may need further scrutiny. Where does Cornerstone stand on code comments? (For an API I try to document things more thoroughly.)
+* I like tabs and configure my files to use tabs with an indent of two. I don't suppose anyone at Cornerstone uses tabs, I'm willing to change. 
+* I would like to have a conversation about AI and coding, how you feel about it, how I've found it helpful (and at times not helpful), including how I used it for this project and how I tend use it in general.
 
-### Configure VS Code Debugging
-To get debugging working in VS Code:
-* Open `App.tsx`
-* In the Debug tab, "create a launch.json file." Choose "Web App (Chrome)"
-* Update `"url": "http://localhost:5173"`, `"webRoot": "${workspaceFolder}/src"`
-* in the Terminal, `npm run dev` to start the server the F5 to debug
+## Initial thoughts on the Game of Life
+Below are notes I made when working on the project.
 
-### Copilot settings
-Click the monkey in the status bar and turn off "Code Completions (TypeScript JSX)." 
-
-## Initial thoughts:
 * Since each cell's future state is dependent on its neighbors' current states, we can't update cells sequentially. Instead, we'll have an array of cells for the current state and an identically-sized array for future state. 
 * An optimization would be to only record cell states that change instead of the state of every cell. 
 * An undo/redo buffer would be great. It only needs to be an undo buffer... Rather than storing the entire grid at each generation, store only changes... 
@@ -98,22 +93,38 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * gliders should glide off the edge
 * Store grid data in an array and load it instead of hard-coding the grids in the load functions? 
 
-## Questions
-const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
-* Would you guys include the `: JSX.Element` type declaration on a Component signature? It requires importing type JSX from react which seems awkward, and it sounds like this type can be easily inferred. I decided to leave it off... 
-* I used to write lots of comments but then I tried harder to make the code self-explanatory and tend to write comments when I feel like something isn't obvious, when the motivation behind the code needs clarification, or if there's something that may need further scrutiny. Where does Cornerstone stand on code comments?
-* I like tabs. I don't suppose anyone at Cornerstone uses tabs, I'm willing to change. 
-* I would like to have a conversation about AI and coding (including how I used it for this project and how I use it in general).
+## Initial Configuration
+Here are notes about how I got React with TypeScript up and running with Vite in Visual Studio Code.
 
-## References
-* VS Code Copilot for things like syntax, explaining React nuances like reviewing React.Memo, etc. 
-* mdn web docs, e.g. https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
-* My albistix React web app
-* https://mui.com/material-ui/react-slider/
+To Create a React app in Visual Studio Code:
+* Run `npm init -y` to create a Node.js `package.json` file
+* Run `npm install react react-dom` to install React
+* Run `npm install --save-dev @types/react @types/react-dom` to install React type definitions (necessary for return types of React components, etc.?)
+* From the parent directory, run `npm create vite@latest React --template react-ts`, react-life for the package name, react for the framework, TypeScript for the variant
+* `npm install @mui/material @mui/icons-material` to install Material UI slider
+* `npm install @emotion/react @emotion/styled` to for @mus/styled-engine?
+* `cd React`
+* `npm install`
+* `npm run dev` to launch the app, open http://localhost:5173 to see it
 
+### Update eslint
+To get TypeScript-related eslinting:
+* Update `eslint.config.js` as per instructions below
+* Install relevant packages with `npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-react-x eslint-plugin-react-dom --save-dev`
+* install ESLint extension (Ctrl + Shift + X)
+
+### Configure VS Code Debugging
+To get debugging working in VS Code:
+* Open `App.tsx`
+* In the Debug tab, "create a launch.json file." Choose "Web App (Chrome)"
+* Update `"url": "http://localhost:5173"`, `"webRoot": "${workspaceFolder}/src"`
+* in the Terminal, `npm run dev` to start the server the F5 to debug
+
+### Copilot settings
+Click the monkey in the status bar and turn off "Code Completions (TypeScript JSX)." "Next Edit Suggestions" turns off with it. 
 
 # React + TypeScript + Vite
-(Written to `README.md` by the Vite installation.)
+For reference, this markdown was written to `README.md` by the Vite installation.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
