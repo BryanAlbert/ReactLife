@@ -1,14 +1,15 @@
-import { useState, useEffect, type ReactElement } from 'react';
+import React, { useState, useEffect, type ReactElement } from 'react';
 import type { LifeState } from '../Types';
+import AboutDialog from './About';
 import Canvas from './Canvas';
+import DiscreteSlider from './Slider';
 import Footer from './Footer';
 import { loadRpentomino, loadRpentominoCorner } from '../games/Rpentomino';
 import { loadGosperGliderGun } from '../games/GosperGliderGun';
-import { computeNextGeneration, generateLoadFunctionInLog } from '../gridFunctions';
-import '../styles/App.css';
-import DiscreteSlider from './Slider';
 import { loadOscillators, } from '../games/Oscillators';
 import { loadSpaceShips } from '../games/SpaceShips';
+import { computeNextGeneration, generateLoadFunctionInLog } from '../gridFunctions';
+import '../styles/App.css';
 
 const App = (): ReactElement => {
 	const width = 60;
@@ -18,12 +19,17 @@ const App = (): ReactElement => {
 	const minimumDelay = 0;
 	const maximumDelay = 1000;
 
+	const [aboutOpen, setAboutOpen] = useState<boolean>(false);
 	const [selectedGrid, setSelectedGrid] = useState<string>('none');
 	const [grid, setGrid] = useState<LifeState[][]>(newGrid());
 	const [generation, setGeneration] = useState<number>(0);
 	const [population, setPopulation] = useState<number>(0);
 	const [running, setRunning] = useState<boolean>(false);
 	const [delay, setDelay] = useState<number>(initialDelay);
+
+	useEffect(() => {
+		setAboutOpen(true);
+	}, []);
 
 	useEffect(() => {
 		const current = grid.flat().map(cell => cell === 'alive' ? 1 : 0).
@@ -75,14 +81,14 @@ const App = (): ReactElement => {
 			case 'R-Pentomino-Corner':
 				setGrid(loadRpentominoCorner(newGrid));
 				break;
-			case 'GosperGliderGun':
-				setGrid(loadGosperGliderGun(newGrid));
-				break;
 			case 'Oscillators':
 				setGrid(loadOscillators(newGrid));
 				break;
 			case 'SpaceShips':
 				setGrid(loadSpaceShips(newGrid));
+				break;
+			case 'GosperGliderGun':
+				setGrid(loadGosperGliderGun(newGrid));
 				break;
 		}
 	}
@@ -93,16 +99,17 @@ const App = (): ReactElement => {
 	}
 
 	return (
-		<>
+		<React.Fragment>
+			<AboutDialog open={aboutOpen} setOpen={setAboutOpen} />
 			<h2>Conway's Game of Life</h2>
 			<div className="horizontal-card">
 				<select className="select" value={selectedGrid}
 						onChange={(event) => handleSelectorChange(event)}>
 					<option value="none">Select a game...</option>
 					<option value="R-Pentomino">R-pentomino</option>
-					<option value="GosperGliderGun">Gosper Glider Gun</option>
 					<option value="Oscillators">Oscillators</option>
 					<option value="SpaceShips">Space Ships</option>
+					<option value="GosperGliderGun">Gosper Glider Gun</option>
 				</select>
 				<p>{`Generation: ${generation}`}</p>
 				<p>{`Population: ${population}`}</p>
@@ -128,7 +135,7 @@ const App = (): ReactElement => {
 			</div>
 
 			<Footer />
-		</>
+		</React.Fragment>
 	)
 }
 

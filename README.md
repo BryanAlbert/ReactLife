@@ -74,7 +74,7 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Log point clicks in code format (e.g. `grid[4][5] = 'alive';`) so that they can be copied and pasted into a new `tsx` file, Reset should write the function signature, etc. (done)
 * "Auto Load" when a game is selected from the selector (done, simplified the code quite a bit)
 * Change none option in App selector to "Select a game..." (done)
-* Add an About page or popup with instructions? Include the rules and instructions--clicking on the grid, loading games, etc. How about on initial load, display the instructions in a dialog with an OK button. 
+* Add an About page or popup with instructions? Include the rules and instructions--clicking on the grid, loading games, etc. How about on initial load, display the instructions in a dialog with an OK button. (done)
 * Load/save games? 
 * Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?
@@ -84,10 +84,10 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Load a new grid, population doesn't update (fixed)
 * Gosper Glider Gun doesn't shoot gliders (fixed)
 * Controls' disabled status (fixed)
-* On delay 0, don't run the setInterval?  
-* Stop running when population goes to zero
+* On delay 0, don't run the setInterval? (Nope.) 
+* Stop running when population goes to zero (fixed)
 * gliders should glide off the edge
-* Store grid data in an array and load it instead of hard-coding the grids? 
+* Store grid data in an array and load it instead of hard-coding the grids in the load functions? 
 
 ## Questions
 const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
