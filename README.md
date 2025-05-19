@@ -32,8 +32,13 @@ For more detailed instructions on configuring the React-TypeScript-Vite environm
 * Material UI for several components, https://mui.com/material-ui/react-slider/ and https://mui.com/material-ui/react-dialog/
 * Stack Overflow, though honestly not as useful as Copilot
 * Several links from medium.com for general reference such as https://medium.com/@martin.crabtree/react-creating-an-interactive-canvas-component-e8e88243baf6, (not that useful, actually)
+* I had family members try the app and watched how they interacted with it, what they thought was cool or confusing, and modified the app in response.  
 
-## Questions
+## Comments and Questions for Cornerstone
+### Comments
+A note about my selection of project: When Jamey was interviewing for a software developer position, she wrote an html Boggle app. My wife and friends were in a Boggle playing phase at that time and I often joined them, seldom doing well but usually reminding them, "You know, a computer could really help a lot here..." When I saw how much fun Jamey was having with her Boggle app, I decided it was time to finally write my own Boggle app, in part to up my Boggle game but also to test out Microsoft's new MAUI cross-platform development framework. You can check out that project at https://github.com/BryanAlbert/Boggle. It runs on Windows and Android (I didn't work on the iOS or macOS implementations, but in theory it should (after some work) run on those platforms as well).
+
+### Questions
 * I used to write lots of comments but but years ago, following a general trend, I tried harder to make the code self-explanatory. I now try to write comments when I feel like something isn't obvious, when the motivation behind the code needs clarification, or if there's something that may need further scrutiny. Where does Cornerstone stand on code comments? (For an API I try to document things more thoroughly.)
 * I like tabs and configure my files to use tabs with an indent of two. I don't suppose anyone at Cornerstone uses tabs, I'm willing to change. 
 * I would like to have a conversation about AI and coding, how you feel about it, how I've found it helpful (and at times not helpful), including how I used it for this project and how I tend use it in general.
