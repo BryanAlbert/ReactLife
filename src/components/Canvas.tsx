@@ -13,7 +13,7 @@ const m_cellSize: number = 10;
 
 const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
- 
+
 	useEffect(() => {
 		const canvas: HTMLCanvasElement | null = canvasRef.current;
 		if (!canvas)
@@ -26,7 +26,7 @@ const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement 
 		const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
 		if (!ctx)
 			return;
-		
+
 		for (let y: number = 0; y < height; y++) {
 			for (let x: number = 0; x < width; x++) {
 				ctx.fillStyle = grid[y][x] === 'alive' ? "rgb(200 200 200)" :

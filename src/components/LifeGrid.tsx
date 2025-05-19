@@ -4,8 +4,8 @@ import type { LifeState } from '../Types';
 import { updateGridCell } from '../gridFunctions';
 import '../styles/LifeGrid.css';
 
-// Due to performance problems, this component (and the Cell component) have been 
-// replaced with the Canvas component. It's left in the codebase for posterity. 
+// Due to performance problems, this component (and the Cell component) have been
+// replaced with the Canvas component. It's left in the codebase for posterity.
 
 export interface GridProps {
 	grid: LifeState[][];

@@ -1,7 +1,23 @@
 # Conway's Game of Life, React
 A coding exercise, to run the life simulation in a React app.
 
-## Configuration
+## Running the program
+To get the Game of Life running on your computer:
+1. Install Node.js as necessary (see [nodejs.org](https://nodejs.org/en) for installation instructions)
+2. Clone the repository
+3. In your terminal, `cd` to the directory and run `npm run dev` to launch the server, type `o [Enter]` to open the app on http://localhost:5173/.  
+
+Note that there's also a Console app version I wrote to work out the algorithm and learn TypeScript, it's got some `async` and `await` and `process.stdin\stdout` that was interesting. 
+
+## Rules
+Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) wikipedia page.
+1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
+2. Any live cell with two or three live neighbors lives on to the next generation.
+3. Any live cell with more than three live neighbors dies, as if by overpopulation.
+4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+
+## Initial Configuration
+These are notes about how I got React with TypeScript up and running with Vite in Visual Studio Code.
 To Create a React app in Visual Studio Code:
 * Run `npm init -y` to create a Node.js `package.json` file
 * Run `npm install react react-dom` to install React
@@ -27,20 +43,12 @@ To get debugging working in VS Code:
 * in the Terminal, `npm run dev` to start the server the F5 to debug
 
 ### Copilot settings
-I can't have Copilot writing all the code for me, I need to figure it out myself, so... click the monkey in the status bar and turn off "Code Completions (TypeScript JSX)." Note that it also looks like I've already burned through 75% of my Code completions... 
-
-## Rules
-Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life) wikipedia page.
-
-1. Any live cell with fewer than two live neighbors dies, as if by underpopulation.
-2. Any live cell with two or three live neighbors lives on to the next generation.
-3. Any live cell with more than three live neighbors dies, as if by overpopulation.
-4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+Click the monkey in the status bar and turn off "Code Completions (TypeScript JSX)." 
 
 ## Initial thoughts:
 * Since each cell's future state is dependent on its neighbors' current states, we can't update cells sequentially. Instead, we'll have an array of cells for the current state and an identically-sized array for future state. 
 * An optimization would be to only record cell states that change instead of the state of every cell. 
-* An undo/redo buffer would be great. It only needs to be an undo buffer... 
+* An undo/redo buffer would be great. It only needs to be an undo buffer... Rather than storing the entire grid at each generation, store only changes... 
 
 The upside-down R-pentomino example in the Wikipedia article diverges from my version at generation 70... at generation 70 the vertical line of four cells on the left edge ends up missing the middle two cells. Further analysis shows that the wikipedia version computes cells past the edge of the window, which affect cells on the edge, while my version assumes that there is no possibility for life beyond the edge of the window. 
 
@@ -50,7 +58,7 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Prepare materials for the interview, due at noon on Monday
 	* Create a list of resources (sites, people, forums, etc.), check browser history, how to list Copilot interactions?
 	* Push both Life repos to public repositories, supply a link
-	* Provide a link to my albistix repo
+	* Provide a link to my albistix repo?
 	* Provide a link to my Boggle repo, the Windows download, or screenshots? 
 
 * Make components for LifeGrid and Cell (done)
@@ -62,7 +70,7 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * I'm (accidentally) using a lot of type inference, go through and declare types (done?)
 * Install the react-devtools (done) and play with it
 * Set size on the buttons so they don't jump around on state changes (done)
-* put controls and status bits in a grid so they're lined up horizontally, or put the status on the top? (Top)
+* Put controls and status bits in a grid so they're lined up horizontally, or put the status on the top? (Top)
 * Compute the next generation! (done)
 * Add a timer and compute the next generation accordingly (done)
 * Use a canvas instead of the Cell collection for performance (done!)
@@ -76,7 +84,8 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Change none option in App selector to "Select a game..." (done)
 * Add an About page or popup with instructions? Include the rules and instructions--clicking on the grid, loading games, etc. How about on initial load, display the instructions in a dialog with an OK button. (done)
 * Load/save games? 
-* Edge issues... expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
+* Edge issues... since I'm returning dead for all sells past the edge of the known universe, the computations aren't strictly correct, since the grid is supposed to be infinite. As a result my gliders don't actually glide off the edge of the world like they should. 
+	* expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far?
 	* Dynamically size the array?
 	* Use a hash instead? 
 
@@ -92,6 +101,9 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 ## Questions
 const LifeGrid = ({ width, height, grid, setGrid }: GridProps): JSX.Element => {
 * Would you guys include the `: JSX.Element` type declaration on a Component signature? It requires importing type JSX from react which seems awkward, and it sounds like this type can be easily inferred. I decided to leave it off... 
+* I used to write lots of comments but then I tried harder to make the code self-explanatory and tend to write comments when I feel like something isn't obvious, when the motivation behind the code needs clarification, or if there's something that may need further scrutiny. Where does Cornerstone stand on code comments?
+* I like tabs. I don't suppose anyone at Cornerstone uses tabs, I'm willing to change. 
+* I would like to have a conversation about AI and coding (including how I used it for this project and how I use it in general).
 
 ## References
 * VS Code Copilot for things like syntax, explaining React nuances like reviewing React.Memo, etc. 

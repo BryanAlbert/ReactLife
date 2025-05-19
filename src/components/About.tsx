@@ -21,8 +21,8 @@ const AboutDialog = ({ open, setOpen }: AboutDialogProps): ReactElement => (
 					<li>If an empty cell has three neighbors, it comes to life!</li>
 				</ol>
 				<p>Create a community by clicking on the grid to bring cells to life (or death).
-					Click <strong>Next</strong> to see what happens to the next generation. 
-					Click <strong>Run</strong> to see the simulation run. 
+					Click <strong>Next</strong> to see what happens to the next generation.
+					Click <strong>Run</strong> to see the simulation run.
 				</p>
 				<p>See <a href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life">
 					Conway's Game of Life</a> on Wikipedia for more information.

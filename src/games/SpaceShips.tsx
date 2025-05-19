@@ -17,7 +17,7 @@ const grid: LifeState[][] = newGrid();
 	grid[4][17] = 'alive';
 	grid[3][17] = 'alive';
 	grid[2][16] = 'alive';
-	
+
 	grid[10][8] = 'alive';
 	grid[12][8] = 'alive';
 	grid[13][9] = 'alive';
@@ -29,7 +29,7 @@ const grid: LifeState[][] = newGrid();
 	grid[11][13] = 'alive';
 	grid[10][12] = 'alive';
 	grid[9][10] = 'alive';
-	
+
 	grid[18][3] = 'alive';
 	grid[20][3] = 'alive';
 	grid[21][4] = 'alive';
