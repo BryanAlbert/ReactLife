@@ -12,7 +12,10 @@ Taken from the [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Ga
 To get the Game of Life running on your computer:
 1. Install Node.js as necessary (see [nodejs.org](https://nodejs.org/en) for installation instructions)
 2. Clone the repository
-3. In your terminal, `cd` to the directory and run `npm run dev` to launch the server, type `o [Enter]` to open the app on http://localhost:5173/.  
+3. In your terminal, `cd` to the directory and run:
+   1. `npm install` to install the project's dependencies
+   2. `npm run dev` to launch the server
+   3. `o [Enter]` to open the app on http://localhost:5173/.
 
 Note that there's also a node.js [Console app](https://github.com/BryanAlbert/ConsoleLife) version I wrote to work out the algorithm and learn TypeScript, it's got some `async` and `await` and `process.stdin\stdout` that was interesting. 
 
