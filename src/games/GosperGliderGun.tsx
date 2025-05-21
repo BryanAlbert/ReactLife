@@ -1,3 +1,4 @@
+import { translateGrid } from "../gridFunctions";
 import type { LifeState } from "../Types";
 
 // LifeState[][] has the shape [row][column] (row major)
@@ -39,5 +40,5 @@ export const loadGosperGliderGun = (newGrid: () => LifeState[][]): LifeState[][]
 	grid[8][16] = 'alive';
 	grid[9][13] = 'alive';
 	grid[9][14] = 'alive';
-	return grid;
+	return translateGrid(grid);
 }

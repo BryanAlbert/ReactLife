@@ -1,3 +1,4 @@
+import { translateGrid } from "../gridFunctions";
 import type { LifeState } from "../Types";
 
 // LifeState[][] has the shape [row][column] (row major)
@@ -8,7 +9,7 @@ export const loadRpentomino = (newGrid: () => LifeState[][]): LifeState[][] => {
 	grid[24][29] = 'alive';
 	grid[25][29] = 'alive';
 	grid[25][30] = 'alive';
-	return grid;
+	return translateGrid(grid);
 }
 
 // LifeState[][] has the shape [row][column] (row major)
@@ -20,5 +21,5 @@ export const loadRpentominoCorner = (newGrid: () => LifeState[][]): LifeState[][
 	grid[2][2] = 'alive';
 	grid[3][2] = 'alive';
 	grid[3][3] = 'alive';
-	return grid;
+	return translateGrid(grid);
 }

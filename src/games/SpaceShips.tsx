@@ -1,3 +1,4 @@
+import { translateGrid } from "../gridFunctions";
 import type { LifeState } from "../Types";
 
 export const loadSpaceShips = (newGrid: () => LifeState[][]): LifeState[][] => {
@@ -43,5 +44,5 @@ const grid: LifeState[][] = newGrid();
 	grid[18][8] = 'alive';
 	grid[17][5] = 'alive';
 	grid[17][6] = 'alive';
-	return grid;
+	return translateGrid(grid);
 }
