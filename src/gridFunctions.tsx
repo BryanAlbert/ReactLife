@@ -1,6 +1,6 @@
 import type { LifeState, Point } from './Types'
 
-export const m_gridPadding = 5;
+export const m_gridPadding = 35;
 
 export interface GridCellProps {
 	grid: LifeState[][],

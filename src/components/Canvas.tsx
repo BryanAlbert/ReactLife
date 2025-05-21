@@ -8,7 +8,7 @@ interface CanvasProps {
 }
 
 const m_cellSize: number = 10;
-const m_showBorderRegion = true;
+const m_showBorderRegion = false;
 
 const Canvas = ({ grid, updateGrid }: CanvasProps): ReactElement => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);

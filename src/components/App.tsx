@@ -12,8 +12,8 @@ import { computeNextGeneration, generateLoadFunctionInLog, m_gridPadding } from 
 import '../styles/App.css';
 
 const App = (): ReactElement => {
-	const width = 5;
-	const height = 5;
+	const width = 60;
+	const height = 50;
 	const initialDelay = 500;
 	const delayStepSize = 10;
 	const minimumDelay = 0;
@@ -107,7 +107,6 @@ const App = (): ReactElement => {
 						onChange={(event) => handleSelectorChange(event)}>
 					<option value="none">Select a game...</option>
 					<option value="R-Pentomino">R-pentomino</option>
-					<option value="R-Pentomino-Corner">R-pentomino Test</option>
 					<option value="Oscillators">Oscillators</option>
 					<option value="SpaceShips">Space Ships</option>
 					<option value="GosperGliderGun">Gosper Glider Gun</option>
