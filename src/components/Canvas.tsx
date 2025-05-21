@@ -1,5 +1,5 @@
-import { useEffect, useRef, type ReactElement } from "react";
-import type { LifeState } from "../Types";
+import { useEffect, useRef, useState, type ReactElement } from "react";
+import { type Point, type LifeState } from "../Types";
 import { updateGridCell } from "../gridFunctions";
 
 interface CanvasProps {
@@ -13,6 +13,8 @@ const m_cellSize: number = 10;
 
 const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+	const [mouseDown, setMouseDown] = useState<boolean>(false);
+	const [mouseCell, setMouseCell] = useState<Point>();
 
 	useEffect(() => {
 		const canvas: HTMLCanvasElement | null = canvasRef.current;
@@ -36,6 +38,13 @@ const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement 
 		}
 	}, [grid, width, height]);
 
+	useEffect(() => {
+		if (mouseDown) {
+			console.log(`Mouse cell: ${mouseCell?.column}, ${mouseCell?.row}`)
+		}
+
+	}, [mouseDown, mouseCell]);
+
 	const clickHandler = ((event: React.MouseEvent<HTMLCanvasElement>): void => {
 		const bounds: DOMRect | undefined = canvasRef.current?.getBoundingClientRect();
 		const row: number = Math.floor((event.clientY - (bounds?.top ?? 0)) / (m_cellSize + 1));
@@ -47,9 +56,28 @@ const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement 
 		updateGrid(updateGridCell({ grid, row, column, state }));
 	});
 
+	const handleMouseMove = ((event: React.MouseEvent<HTMLCanvasElement, MouseEvent>): void => {
+		if (mouseDown) {
+			const bounds: DOMRect | undefined = canvasRef.current?.getBoundingClientRect();
+			const row: number = Math.floor((event.clientY - (bounds?.top ?? 0)) / (m_cellSize + 1));
+			const column: number = Math.floor((event.clientX - (bounds?.left ?? 0)) / (m_cellSize + 1));
+			if (mouseCell?.row != row && mouseCell?.column != column) {
+				clickHandler(event);
+				setMouseCell({ row, column });
+			}
+		}
+	});
+
+	const handleMouseDown = ((event: React.MouseEvent<HTMLCanvasElement, MouseEvent>): void => {
+		console.log(`Mouse down or up"}`);
+		setMouseDown(true);
+		clickHandler(event);
+	});
+
 	return (
 		<canvas ref={canvasRef} width={width * 10} height={height * 10}
-			onClick={clickHandler} />
+			onMouseDown={handleMouseDown} 
+			onMouseUp={() => setMouseDown(false)} onMouseMove={handleMouseMove} />
 	);
 }
 

@@ -28,7 +28,7 @@ const App = (): ReactElement => {
 	const [delay, setDelay] = useState<number>(initialDelay);
 
 	useEffect(() => {
-		setAboutOpen(true);
+//		setAboutOpen(true);
 	}, []);
 
 	useEffect(() => {
