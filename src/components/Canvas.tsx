@@ -10,6 +10,8 @@ interface CanvasProps {
 const m_cellSize: number = 10;
 const m_showBorderRegion = false;
 
+// TODO: pass width and height in as before instead of computing them from the grid,
+// do the m_showBorderRegion calculation on the canvas.width and canvas.height setting
 const Canvas = ({ grid, updateGrid }: CanvasProps): ReactElement => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const width: number = grid[0].length - (m_showBorderRegion ? 0 : 2 * m_gridPadding);
@@ -63,6 +65,7 @@ const Canvas = ({ grid, updateGrid }: CanvasProps): ReactElement => {
 		updateGrid(updatedGrid);
 	});
 
+	// TODO; remove width and height properties, they're set above
 	return (
 		<canvas ref={canvasRef} width={width * 10} height={height * 10}
 			onClick={clickHandler} />
