@@ -103,21 +103,19 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 
 ## Code Review
 Issues or questions I found while reviewing the code before the coding interview...
-* No types specified on the `const`s lines 15-20 of `App.tsx`
-* No type specified on `current`, line 35 of `App.tsx`
-* Move the body of `load`, line 70 of `App.tsx` into the `handleSelectorChange` function since we don't call it anywhere else (we used to before I streamlined the selector and Load button interaction)
-* Line 74 of `App.tsx`, oops, old-style indented braces (which I still think look prettier)
+* No types specified on the `const`s lines 15-20 of `App.tsx` (fixed)
+* No type specified on `current`, line 35 of `App.tsx` (fixed)
+* Line 74 of `App.tsx`, oops, old-style indented braces (fixed)
 * Line 98 of `App.tsx`, don't pass `width` and `height` to `computeNextGeneration`? No, continue (no need to calculate them in `computeNextGeneration`, and intent is more clear? On the other hand, the grid knows its dimensions, so maybe it's just clutter)
-* Line 120 of `App.tsx`, don't pass the arrow function, pass the function name
+* Lines 127, and 129 of `App.tsx`, don't pass the arrow function, pass the function name (fixed)
 * Line 134 of `App.tsx`, don't pass the arrow function, just the function name
-* Canvas `width` and `height`
-* Since I'm computing the `width` and `height` in `Canvas.txs` line 22, I don't need to pass them in, remove them from the `CanvasProps`; or, just don't compute them, but see above
-* I'm already setting `width` and `height` on the `canvas`, lines 24 and 25 of `Canvas.tsx`, so I don't need to set them as styles of the `canvas` element on line 51 (I noticed that the calculation there was missing the gutters and it doesn't make a difference so I investigated)
-* Add an error message on line 28 of `Canvas.tsx` if `canvas.getContext` call fails
-* `gridFunctions.tsx` move the `GridProps` interface under the other one?
-* Switch `,` to `;` in `gridFunctions.tsx` interfaces
-* Line 22 of `gridFunctions.tsx`, add a comment about why we're returning a `number` rather than an `boolean`, or is it obvious? (It's obvious at the call sight, but..)
-* Line 40 of `gridFunctions.tsx` is too long... 
+* Since I'm computing the `width` and `height` in `Canvas.txs` line 22, I don't need to pass them in, remove them from the `CanvasProps`; or, just don't compute them, but see above (fixed, not computing them)
+* I'm already setting `width` and `height` on the `canvas`, lines 24 and 25 of `Canvas.tsx`, so I don't need to set them as styles of the `canvas` element on line 51 (I noticed that the calculation there was missing the gutters and it doesn't make a difference so I investigated) (fixed)
+* Add an error message on line 28 of `Canvas.tsx` if `canvas.getContext` call fails (fixed)
+* `gridFunctions.tsx` move the `GridProps` interface under the other one? (fixed)
+* Switch `,` to `;` in `gridFunctions.tsx` interfaces (fixed)
+* Line 22 of `gridFunctions.tsx`, add a comment about why we're returning a `number` rather than an `boolean`, or is it obvious? (It's obvious at the call sight, but..) (fixed)
+* Line 40 of `gridFunctions.tsx` is too long... (fixed)
 
 ## Initial Configuration
 Here are notes about how I got React with TypeScript up and running with Vite in Visual Studio Code.

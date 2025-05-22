@@ -12,12 +12,12 @@ import { computeNextGeneration, generateLoadFunctionInLog } from '../gridFunctio
 import '../styles/App.css';
 
 const App = (): ReactElement => {
-	const width = 60;
-	const height = 50;
-	const initialDelay = 500;
-	const delayStepSize = 10;
-	const minimumDelay = 0;
-	const maximumDelay = 1000;
+	const width: number = 60;
+	const height: number = 50;
+	const initialDelay: number = 500;
+	const delayStepSize: number = 10;
+	const minimumDelay: number = 0;
+	const maximumDelay: number = 1000;
 
 	const [aboutOpen, setAboutOpen] = useState<boolean>(false);
 	const [selectedGrid, setSelectedGrid] = useState<string>('none');
@@ -28,11 +28,11 @@ const App = (): ReactElement => {
 	const [delay, setDelay] = useState<number>(initialDelay);
 
 	useEffect(() => {
-//		setAboutOpen(true);
+		setAboutOpen(true);
 	}, []);
 
 	useEffect(() => {
-		const current = grid.flat().map(cell => cell === 'alive' ? 1 : 0).
+		const current: number = grid.flat().map(cell => cell === 'alive' ? 1 : 0).
 			reduce<number>((sum, cell) => sum + cell, 0);
 
 		setPopulation(current);
@@ -124,9 +124,9 @@ const App = (): ReactElement => {
 				<button className="button" type="button" disabled={selectedGrid === 'none'}
 					onClick={() => load(selectedGrid)}>Reload</button>
 				<button className="button" type="button" disabled={population === 0}
-					onClick={() => reset()}>Reset</button>
+					onClick={reset}>Reset</button>
 				<button className="button" type="button" disabled={population === 0 ||
-					running} onClick={() => next()}>Next</button>
+					running} onClick={next}>Next</button>
 				<button className="button" type="button" disabled={population === 0}
 					onClick={() => setRunning(running => !running)}>{running ? 'Stop' : 'Run'}
 				</button>

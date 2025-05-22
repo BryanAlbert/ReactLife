@@ -1,10 +1,16 @@
 import type { LifeState, Point } from './Types'
 
 export interface GridCellProps {
-	grid: LifeState[][],
-	row: number,
-	column: number,
+	grid: LifeState[][];
+	row: number;
+	column: number;
 	state: LifeState
+}
+
+export interface GridProps {
+	grid: LifeState[][];
+	width: number;
+	height: number
 }
 
 export const updateGridCell = ({ grid, row, column, state }: GridCellProps): LifeState[][] => {
@@ -13,12 +19,7 @@ export const updateGridCell = ({ grid, row, column, state }: GridCellProps): Lif
 	return update;
 }
 
-export interface GridProps {
-	grid: LifeState[][],
-	width: number,
-	height: number
-}
-
+// returning a number so that we can add them up to count total neighbors
 const isCellAlive = ({ grid, width, height }: GridProps, { row, column }: Point): number => {
 	return column < 0 || column >= width || row < 0 || row >= height ? 0 :
 		grid[row][column] === 'alive' ? 1 : 0;
@@ -37,7 +38,8 @@ const countNeighbors = ({ grid, width, height }: GridProps,	{ row, column }: Poi
 	];
 
 	return directions.reduce((sum, offset) => sum +
-		isCellAlive({ grid, width, height }, { row: row + offset.row, column: column + offset.column }), 0);
+		isCellAlive({ grid, width, height },
+			{ row: row + offset.row, column: column + offset.column }), 0);
 }
 
 export const computeNextGeneration = ({ grid, width, height }: GridProps):

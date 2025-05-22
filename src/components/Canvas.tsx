@@ -21,13 +21,13 @@ const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement 
 		if (!canvas)
 			return;
 
-		const width: number = grid[0].length;
-		const height: number = grid.length;
 		canvas.width = width * (m_cellSize + 1);
 		canvas.height = height * (m_cellSize + 1);
 		const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
-		if (!ctx)
+		if (!ctx) {
+			console.log('Failed to get a 2d context from the canvas.')
 			return;
+		}
 
 		for (let y: number = 0; y < height; y++) {
 			for (let x: number = 0; x < width; x++) {
@@ -67,8 +67,7 @@ const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement 
 	});
 
 	return (
-		<canvas ref={canvasRef} width={width * 10} height={height * 10}
-			onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}
+		<canvas ref={canvasRef} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}
 			onMouseUp={() => setMouseDown(false)} />
 	);
 }
