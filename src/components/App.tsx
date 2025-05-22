@@ -8,7 +8,7 @@ import { loadRpentomino, loadRpentominoCorner } from '../games/Rpentomino';
 import { loadGosperGliderGun } from '../games/GosperGliderGun';
 import { loadOscillators, } from '../games/Oscillators';
 import { loadSpaceShips } from '../games/SpaceShips';
-import { computeNextGeneration, generateLoadFunctionInLog } from '../gridFunctions';
+import { computeNextGeneration, generateLoadFunctionInLog, m_gridPadding } from '../gridFunctions';
 import '../styles/App.css';
 
 const App = (): ReactElement => {
@@ -49,8 +49,8 @@ const App = (): ReactElement => {
 	}, [running, delay]);
 
 	function newGrid(): LifeState[][] {
-		return Array.from({ length: height },
-			() => Array.from({ length: width }, () => 'none'));
+		return Array.from({ length: height + 2 * m_gridPadding },
+			() => Array.from({ length: width + 2 * m_gridPadding }, () => 'none'));
 	}
 
 	const reset = (): void => {
@@ -95,7 +95,7 @@ const App = (): ReactElement => {
 
 	const next = (): void => {
 		setGeneration(generation => generation + 1);
-		setGrid(grid => computeNextGeneration({ grid, width, height }));
+		setGrid(grid => computeNextGeneration(grid));
 	}
 
 	return (
@@ -117,7 +117,7 @@ const App = (): ReactElement => {
 			</div>
 
 			<div className="card">
-				<Canvas grid={grid} width={width} height={height} updateGrid={(grid) => setGrid(grid)} />
+				<Canvas grid={grid} updateGrid={setGrid} />
 			</div>
 
 			<div className="horizontal-card">

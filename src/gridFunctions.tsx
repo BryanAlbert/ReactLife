@@ -1,5 +1,7 @@
 import type { LifeState, Point } from './Types'
 
+export const m_gridPadding = 35;
+
 export interface GridCellProps {
 	grid: LifeState[][];
 	row: number;
@@ -17,6 +19,19 @@ export const updateGridCell = ({ grid, row, column, state }: GridCellProps): Lif
 	const update: LifeState[][] = [...grid].map(column => [...column]);
 	update[row][column] = state;
 	return update;
+}
+
+export const translateGrid = (grid: LifeState[][], gridPadding: number=m_gridPadding): LifeState[][] => {
+	const width: number = grid[0].length;
+	const height: number = grid.length;
+	const translated: LifeState[][] = Array.from({ length: height },
+		() => Array.from({ length: width }, () => 'none'));
+
+	for (let row: number = 0; row < height - 2 * gridPadding; row++)
+		for (let column: number = 0; column < width - 2 * gridPadding; column++)
+			translated[row + gridPadding][column + gridPadding] = grid[row][column];
+
+	return translated;
 }
 
 // returning a number so that we can add them up to count total neighbors
@@ -42,8 +57,9 @@ const countNeighbors = ({ grid, width, height }: GridProps,	{ row, column }: Poi
 			{ row: row + offset.row, column: column + offset.column }), 0);
 }
 
-export const computeNextGeneration = ({ grid, width, height }: GridProps):
-	LifeState[][] => {
+export const computeNextGeneration = (grid: LifeState[][]): LifeState[][] => {
+	const width: number = grid[0].length;
+	const height: number = grid.length;
 	const next: LifeState[][] = grid.map((line, row) => line.map((state, column) => {
 		const neighborCount: number = countNeighbors({ grid, width, height }, { row, column });
 		return state === 'alive' ?

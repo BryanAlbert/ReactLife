@@ -55,6 +55,8 @@ Below are notes I made when working on the project.
 
 The upside-down R-pentomino example in the Wikipedia article diverges from my version at generation 70... at generation 70 the vertical line of four cells on the left edge ends up missing the middle two cells. Further analysis shows that the wikipedia version computes cells past the edge of the window, which affect cells on the edge, while my version assumes that there is no possibility for life beyond the edge of the window. 
 
+Implementing a viewport window, which took longer than I had hoped it would, "works"—for certain grids. Setting `width` to `50` and `height` to `40` in `App.tsx` (to match the Wikipedia article's layout) ends up with the same eventual grid if the `m_gridPadding` is set to `35`, a pretty big number, and the R-pentomino offset is set to `31`, (i.e. `return translateGrid(grid, 31);` to center the figure) in `Rpentomino.tsx`. This is not an optimal solution because the `m_gridPadding` number is arbitrary (I had to get find it by trial and error). To see (or debug) the larger  grid with viewport, set `width` and `height` to `10` and `m_gridPadding` to `5`, add the `<option value="R-Pentomino-Corner">R-pentomino Test</option>` to the selector and set `const m_showBorderRegion = true;` in `Canvas.tsx`. 
+
 An enhancement, then, could be to compute assuming an infinitely-large field. This could be complicated since some shapes such as "gliders" and "space ships" can traverse the grid indefinitely, requiring a larger and larger grid. We could grow the grid as necessary, which could be problematic with size issues and buffer manipulation. We could also use a different storage mechanism, such as a hash table, which could be implemented with a JavaScript Map object. 
 
 ## TODO:
@@ -88,7 +90,7 @@ An enhancement, then, could be to compute assuming an infinitely-large field. Th
 * Add an About page or popup with instructions? Include the rules and instructions--clicking on the grid, loading games, etc. How about on initial load, display the instructions in a dialog with an OK button. (done)
 * Load/save games? 
 * Edge issues... since I'm returning dead for all sells past the edge of the known universe, the computations aren't strictly correct, since the grid is supposed to be infinite. As a result my gliders don't actually glide off the edge of the world like they should. 
-	* expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far? See grid-viewport branch... 
+	* expand the grid past the visible dimensions in all directions so that edged computations account for cells beyond the edge... but how far? See grid-viewport branch... (done)
 	* Dynamically size the array?
 	* Use a hash instead? 
 
