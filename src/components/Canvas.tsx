@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactElement } from "react";
+import React, { useEffect, useRef, useState, type ReactElement } from "react";
 import { type Point, type LifeState } from "../Types";
 import { updateGridCell } from "../gridFunctions";
 
@@ -38,46 +38,38 @@ const Canvas = ({ grid, width, height, updateGrid }: CanvasProps): ReactElement 
 		}
 	}, [grid, width, height]);
 
-	useEffect(() => {
-		if (mouseDown) {
-			console.log(`Mouse cell: ${mouseCell?.column}, ${mouseCell?.row}`)
-		}
-
-	}, [mouseDown, mouseCell]);
-
-	const clickHandler = ((event: React.MouseEvent<HTMLCanvasElement>): void => {
+	const computeMouseCell = (event: React.MouseEvent<HTMLCanvasElement>): Point => {
 		const bounds: DOMRect | undefined = canvasRef.current?.getBoundingClientRect();
 		const row: number = Math.floor((event.clientY - (bounds?.top ?? 0)) / (m_cellSize + 1));
 		const column: number = Math.floor((event.clientX - (bounds?.left ?? 0)) / (m_cellSize + 1));
-
-		// log new grid cell value (see generateLoadFunctionInLog)
-		const state = grid[row][column] === 'alive' ? 'none' : 'alive';
-		console.log(`\tgrid[${row}][${column}] = 'alive';`);
-		updateGrid(updateGridCell({ grid, row, column, state }));
+		return { row, column };
+	}
+		
+	const updateCell = ((cell: Point, force?: boolean): void => {
+		const state = force ? 'alive' : grid[cell.row][cell.column] === 'alive' ? 'none' : 'alive';
+		setMouseCell(cell);
+		updateGrid(updateGridCell({ grid, row: cell.row, column: cell.column, state }));
 	});
 
 	const handleMouseMove = ((event: React.MouseEvent<HTMLCanvasElement, MouseEvent>): void => {
-		if (mouseDown) {
-			const bounds: DOMRect | undefined = canvasRef.current?.getBoundingClientRect();
-			const row: number = Math.floor((event.clientY - (bounds?.top ?? 0)) / (m_cellSize + 1));
-			const column: number = Math.floor((event.clientX - (bounds?.left ?? 0)) / (m_cellSize + 1));
-			if (mouseCell?.row != row && mouseCell?.column != column) {
-				clickHandler(event);
-				setMouseCell({ row, column });
+		if (mouseDown && mouseCell) {
+			const cell: Point = computeMouseCell(event);
+			if (mouseCell.row != cell.row || mouseCell?.column != cell.column) {
+				updateCell({ column: cell.column, row: cell.row }, true);
 			}
 		}
 	});
 
 	const handleMouseDown = ((event: React.MouseEvent<HTMLCanvasElement, MouseEvent>): void => {
-		console.log(`Mouse down or up"}`);
+		const cell: Point = computeMouseCell(event);
 		setMouseDown(true);
-		clickHandler(event);
+		updateCell(cell);
 	});
 
 	return (
 		<canvas ref={canvasRef} width={width * 10} height={height * 10}
-			onMouseDown={handleMouseDown} 
-			onMouseUp={() => setMouseDown(false)} onMouseMove={handleMouseMove} />
+			onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}
+			onMouseUp={() => setMouseDown(false)} />
 	);
 }
 
